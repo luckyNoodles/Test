@@ -1,0 +1,169 @@
+# Javascript Coding Standards
+
+## Purpose
+The purpose of this document is to document JavaScript Coding Best Practices on which the Analytics and Search Team has collectively agreed. It also documents proposed additions and amendments to said Coding Best Practices.  
+
+### Indentation
+Use four spaces for indentation instead of a tab or three or two spaces.
+
+Example:  
+
+**Instead of this**
+```javascript
+function ageChecker(age) {
+  if (age < 21) {
+    console.log("This person is not an adult!");
+  } else {
+    console.log("This person is an adult!);
+  }
+}
+```
+**Do this!**
+```javascript
+function ageChecker(age) {
+    if (age < 21) {
+        console.log("This person is not an adult!");
+    } else {
+        console.log("This person is an adult!");
+    }
+}
+```  
+
+
+### Variable Declaration
+Use const and let instead of var whenever possible.
+
+Example:  
+
+**Instead of this**
+```javascript
+function ageChecker(age) {
+    var AGE_LIMIT = 21;
+    for (var i = 0; i < age.length; i += 1) {
+        if (age[i] < AGE_LIMIT) {
+            console.log("Person " + (i + 1) + " is not an adult!");
+        } else {
+            console.log("Person " + (i + 1) + " is an adult!");
+        }
+    }
+}
+```
+**Do this!**
+```javascript
+function ageChecker(age) {
+    const AGE_LIMIT = 21;
+    for (let i = 0; i < age.length; i += 1) {
+        if (age[i] < AGE_LIMIT) {
+            console.log("Person " + (i + 1) + " is not an adult!");
+        } else {
+            console.log("Person " + (i + 1) + " is an adult!");
+        }
+    }
+}
+```  
+
+
+### Variable and Function Names
+Use camel case to name variables and functions. If the variable is a constant, then use screaming snake case to name the variable.
+
+Example:  
+
+**Instead of this**
+```javascript
+function agechecker(Person) {
+    const agelimit = 21;
+    for (let i = 0; i < Person.length; i += 1) {
+        if (Person[i].Age < agelimit) {
+            console.log(Person[i].firstname + " " + Person[i].lastname + " is not an adult!");
+        } else {
+            console.log(Person[i].firstname + " " + Person[i].lastname + " is an adult!");
+        }
+    }
+}
+```
+**Do this!**
+```javascript
+function ageChecker(person) {
+    const AGE_LIMIT = 21;
+    for (let i = 0; i < person.length; i += 1) {
+        if (person[i].age < AGE_LIMIT) {
+            console.log(person[i].firstName + " " + person[i].lastName + " is not an adult!");
+        } else {
+            console.log(person[i].firstName + " " + person[i].lastName + " is an adult!");
+        }
+    }
+}
+```  
+
+
+### Array Includes String Conditionals
+When evaluating a conditional that involves multiple possible values of string, use `[].includes` every time there are more than 2 conditions to check.
+
+Example:  
+
+**Instead of this**
+```javascript
+if (myCountry === "CANADA" || myCountry === "USA" || myCountry === "MEXICO") {
+    myContinent = "NORTH AMERICA";
+}
+```
+**Do this!**
+```javascript
+if (["CANADA", "USA", "MEXICO"].includes(myCountry)) {
+    myContinent = "NORTH AMERICA";
+}
+```  
+
+
+### Spaces after keywords, commas, and variable assignments
+Keywords, commas, and variable assignments should be followed by a single space.
+
+Example:  
+
+**Instead of this**
+```javascript
+if(myAge < 21) {                     // if statement
+ 
+while(flagRaised) {                  // while statement
+ 
+let myName="George";                 // variable assignment
+ 
+const PERFECT_SQUARES=[1,4,9,16,25]; // array declaration
+ 
+myFunc("George",18);                 // function/method invocation
+```
+**Do this!**
+```javascript
+if (myAge < 21) {                          // if statement
+ 
+while (flagRaised) {                       // while statement
+ 
+let myName = "George";                     // variable assignment
+ 
+const PERFECT_SQUARES = [1, 4, 9, 16, 25]; // array declaration
+ 
+myFunc("George", 18);
+```  
+
+
+### Extra Boolean casting (aka double bangs) should never be used, but Boolean can be
+Only use extra boolean casting when it is absolutely necessary. In particular, note that any conditional in JavaScript returns a boolean, so casting is unnecessary.
+
+Example:  
+
+**Instead of this**
+```javascript
+function isVariableDefined(testVar) {
+    if (!!GLOBAL_QA_DEBUG_FLAG) {
+        return !!testVar;
+    }
+}
+```
+**Do this!**
+```javascript
+function isVariableDefined(testVar) {
+    if (GLOBAL_QA_DEBUG_FLAG) {
+        return Boolean(testVar); // extra cast justified here to force a boolean return
+    }
+}
+```  
